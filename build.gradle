@@ -1,0 +1,72 @@
+//file:noinspection SpellCheckingInspection
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+group = 'me.heymrau'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT'
+
+    implementation 'com.zaxxer:HikariCP:4.0.3'
+
+    compileOnly 'org.jetbrains:annotations:23.0.0'
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+}
+
+shadowJar {
+    minimize()
+    archiveFileName = "${rootProject.name} v${rootProject.version}.jar"
+}
+
+processResources {
+    filesMatching('plugin.yml') {
+        expand 'version': rootProject.version
+    }
+}
+
+project.afterEvaluate {
+    tasks.create("depsize") {
+        listConfigurationDependencies(configurations.default)
+    }
+
+    tasks.create("depsize-all-configurations") {
+        configurations.forEach(configurations -> {
+            if (configurations.canBeResolved) {
+                listConfigurationDependencies(configurations)
+            }
+        })
+    }
+
+}
+
+def listConfigurationDependencies(Configuration configuration) {
+    def formatStr = "%,10.2f"
+
+    def size = configuration.collect { it.length() / (1024 * 1024) }.sum()
+
+    def out = new StringBuffer()
+    out << "\nConfiguration name: \"${configuration.name}\"\n"
+    if (size) {
+        out << 'Total dependencies size:'.padRight(65)
+        out << "${String.format(formatStr, size)} Mb\n\n"
+
+        configuration.sort { -it.length() }
+                .each {
+                    out << "${it.name}".padRight(65)
+                    out << "${String.format(formatStr, (it.length() / 1024))} kb\n"
+                }
+    } else {
+        out << 'No dependencies found'
+    }
+    println(out)
+}

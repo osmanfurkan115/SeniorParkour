@@ -1,0 +1,5 @@
+name: SeniorParkour
+version: '${version}'
+main: me.heymrau.seniorparkour.SeniorParkour
+api-version: 1.13
+authors: [ HeyMrau ]
