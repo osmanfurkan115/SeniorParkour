@@ -21,7 +21,6 @@ public final class ConfigKeys {
         public static final ConfigKey<String> PLAYER_FINISHED_PARKOUR = new ConfigKey<>(ConfigType.MESSAGES, "player", "finished-parkour");
         public static final ConfigKey<String> PLAYER_ELIMINATED_PARKOUR = new ConfigKey<>(ConfigType.MESSAGES, "player", "eliminated");
         public static final ConfigKey<String> PLAYER_REACHED_CHECKPOINT = new ConfigKey<>(ConfigType.MESSAGES, "player", "reached-checkpoint");
-        public static final ConfigKey<String> PLAYER_NOT_REACHED_CHECKPOINT = new ConfigKey<>(ConfigType.MESSAGES, "player", "not-reached-checkpoint");
     }
 
     public static final class Settings {

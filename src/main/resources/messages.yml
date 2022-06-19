@@ -19,4 +19,3 @@ messages:
     finished-parkour: '&aYou have finished the parkour %parkour%!'
     eliminated: '&aYou have been eliminated from the parkour %parkour%!'
     reached-checkpoint: '&aYou have reached checkpoint %checkpoint%!'
-    not-reached-checkpoint: '&aYou haven''t reached all the checkpoints yet!'

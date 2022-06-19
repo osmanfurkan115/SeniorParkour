@@ -84,10 +84,7 @@ public class ParkourManager {
             if (!parkourEntry.getParkour().equals(parkour)) return;
 
             if (parkour.getEndBlock() != null && parkour.getEndBlock().equals(clickedBlock)) {
-                if (!new HashSet<>(parkourEntry.getCompletedCheckpoints()).containsAll(parkour.getCheckpoints())) {
-                    ConfigKeys.Messages.PLAYER_NOT_REACHED_CHECKPOINT.send(player);
-                    return;
-                }
+                if (!new HashSet<>(parkourEntry.getCompletedCheckpoints()).containsAll(parkour.getCheckpoints())) return;
                 plugin.getParkourEntryManager().endEntry(parkourEntry);
                 return;
             }
