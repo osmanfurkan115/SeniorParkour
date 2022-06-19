@@ -1,8 +1,8 @@
 package me.heymrau.seniorparkour.menu.listener;
 
 import me.heymrau.seniorparkour.menu.Menu;
-import me.heymrau.seniorparkour.menu.item.MenuItem;
 import me.heymrau.seniorparkour.menu.MenuProvider;
+import me.heymrau.seniorparkour.menu.item.MenuItem;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
