@@ -10,13 +10,22 @@ version = '1.0.0'
 repositories {
     mavenCentral()
     maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven { url 'https://repo.aikar.co/content/groups/aikar/' }
     maven { url 'https://jitpack.io' }
+    maven { url 'https://repo.dmulloy2.net/repository/public/' }
 }
 
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT'
 
-    implementation 'com.zaxxer:HikariCP:4.0.3'
+    implementation 'co.aikar:acf-paper:0.5.1-SNAPSHOT'
+    implementation('org.spongepowered:configurate-yaml:3.7.2') {
+        exclude group: 'org.yaml', module: 'snakeyaml'
+        exclude group: 'com.google.inject'
+        exclude group: 'com.google.guava'
+    }
+
+    implementation 'com.zaxxer:HikariCP:5.0.1'
 
     compileOnly 'org.jetbrains:annotations:23.0.0'
     compileOnly 'org.projectlombok:lombok:1.18.24'
@@ -25,6 +34,8 @@ dependencies {
 
 shadowJar {
     minimize()
+    relocate 'co.aikar.commands', 'me.heymrau.seniorparkour.acf'
+    relocate 'co.aikar.locales', 'me.heymrau.seniorparkour.locales'
     archiveFileName = "${rootProject.name} v${rootProject.version}.jar"
 }
 
