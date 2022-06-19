@@ -1,0 +1,13 @@
+settings:
+  storage:
+    type: 'MySQL' # Only MySQL is supported
+
+    host: 'localhost'
+    database: 'parkours'
+    username: 'root'
+    password: 'root'
+
+  save-interval: 1200 # Save interval in seconds
+
+  pressure-plate:
+    material: 'LIGHT_WEIGHTED_PRESSURE_PLATE'

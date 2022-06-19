@@ -1,0 +1,18 @@
+start-hologram:
+  height: 0.25
+  lines:
+    - '&a&lParkour &e- &a%parkour%'
+    - '&eThis is the start point of the parkour'
+
+checkpoint-hologram:
+  height: 0.25
+  lines:
+    - '&a&lParkour &e- &a%parkour%'
+    - '&eThis is a checkpoint of the parkour'
+    - '&eCheck point name: %checkpoint%'
+
+end-hologram:
+  height: 0.25
+  lines:
+    - '&a&lParkour &e- &a%parkour%'
+    - '&eThis is the end point of the parkour'

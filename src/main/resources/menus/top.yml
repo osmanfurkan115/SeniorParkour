@@ -1,0 +1,18 @@
+menu:
+  title: '&e&lParkour Top'
+  size: 18
+  items:
+    previous-page:
+      type: 'PAPER'
+      slot: 11
+      name: '&ePrevious Page'
+    next-page:
+      type: 'PAPER'
+      slot: 14
+      name: '&eNext Page'
+    user:
+      type: 'PLAYER_HEAD'
+      slot: [0,1,2,3,4,5,6,7,8]
+      name: '&e%position% - %player%'
+      lore:
+        - '&aBest time: %time% seconds'

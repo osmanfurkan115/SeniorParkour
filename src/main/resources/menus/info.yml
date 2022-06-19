@@ -1,0 +1,18 @@
+menu:
+  title: '&e&lParkour Info'
+  size: 18
+  items:
+    start-location:
+      type: 'COMPASS'
+      slot: 0
+      name: '&eTeleport to the start'
+    end-location:
+      type: 'COMPASS'
+      slot: 8
+      name: '&eTeleport to the end'
+    checkpoints:
+      type: 'GRASS_BLOCK'
+      slot: [9,10,11,12,13,14,15,16,17]
+      name: '&eCheckpoint - %checkpoint%'
+      lore:
+        - '&aClick to teleport to this checkpoint'

@@ -1,0 +1,22 @@
+messages:
+  parkour:
+    created: '&aYou have created a parkour!'
+    set-end: '&aYou have set the end of the parkour!'
+    deleted: '&aYou have deleted the parkour!'
+
+    teleport: '&aYou have been teleported to the start of the parkour!'
+
+    end-not-set: '&cThe end of the parkour has not been set!'
+
+  checkpoint:
+    created: '&aYou have created a checkpoint!'
+    deleted: '&aYou have deleted a checkpoint!'
+
+    teleport: '&aYou have been teleported to the checkpoint %checkpoint%!'
+
+  player:
+    started-parkour: '&aYou have started the parkour %parkour%!'
+    finished-parkour: '&aYou have finished the parkour %parkour%!'
+    eliminated: '&aYou have been eliminated from the parkour %parkour%!'
+    reached-checkpoint: '&aYou have reached checkpoint %checkpoint%!'
+    not-reached-checkpoint: '&aYou haven''t reached all the checkpoints yet!'
