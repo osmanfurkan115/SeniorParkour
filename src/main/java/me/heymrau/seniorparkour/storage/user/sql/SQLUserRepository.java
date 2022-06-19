@@ -59,7 +59,7 @@ public class SQLUserRepository implements UserRepository {
                 String name = resultSet.getString("parkour_name");
                 int completionTime = resultSet.getInt("completion_time");
                 if (completionTime == 0) continue;
-                parkourCompletionRecords.add(new ParkourCompletionRecord(parkourManager.findByName(name).get(), completionTime * 1000L));
+                parkourManager.findByName(name).ifPresent(parkour -> parkourCompletionRecords.add(new ParkourCompletionRecord(parkour, completionTime * 1000L)));
             }
             return parkourCompletionRecords;
         } catch (SQLException e) {

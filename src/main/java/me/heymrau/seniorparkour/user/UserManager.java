@@ -35,6 +35,7 @@ public class UserManager {
     }
 
     public List<User> findTopByParkour(Parkour parkour, int limit) {
+        userRepository.saveAll(users);
         return userRepository.findTopByParkour(parkour, limit);
     }
 
