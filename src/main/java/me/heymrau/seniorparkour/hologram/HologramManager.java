@@ -20,10 +20,7 @@ public class HologramManager {
     private final Yaml hologramsFile = new Yaml("holograms.yml");
 
     public Optional<Hologram> findById(String id) {
-        return holograms.values()
-                .stream()
-                .filter(hologram -> hologram.getId().equals(id))
-                .findFirst();
+        return Optional.ofNullable(holograms.get(id));
     }
 
     public Optional<Hologram> findByBlock(Block block) {
