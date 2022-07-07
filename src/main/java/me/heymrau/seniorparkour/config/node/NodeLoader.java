@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 public class NodeLoader {
 
@@ -37,7 +38,8 @@ public class NodeLoader {
         try {
             File file = new File(path);
             if (!file.exists()) {
-                Files.copy(inputStream, file.toPath());
+                FileUtil.createIfAbsent(file);
+                Files.copy(inputStream, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
             }
             return loadFile(file);
         } catch (IOException e) {

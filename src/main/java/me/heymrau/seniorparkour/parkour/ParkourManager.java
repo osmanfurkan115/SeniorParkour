@@ -27,7 +27,9 @@ public class ParkourManager {
         File parkoursDirectory = new File(plugin.getDataFolder(), "parkours");
         FileUtil.createIfAbsent(parkoursDirectory);
 
-        List<Parkour> parkours = new ParkourLoader().loadAll(Arrays.asList(parkoursDirectory.listFiles()));
+        File[] files = parkoursDirectory.listFiles();
+        if (files == null) return;
+        List<Parkour> parkours = new ParkourLoader().loadAll(Arrays.asList(files));
         this.parkours.addAll(parkours);
     }
 
@@ -73,7 +75,7 @@ public class ParkourManager {
 
     public void handlePressurePlate(Player player, Block clickedBlock) {
         parkours.forEach(parkour -> {
-            if (parkour.getStartBlock().equals(clickedBlock)) {
+            if (parkour.getStartBlock().equals(clickedBlock) && parkour.getEndBlock() != null) {
                 plugin.getParkourEntryManager().startEntry(player, parkour);
                 return;
             }

@@ -16,7 +16,7 @@ public final class FileUtil {
 
     public static File createIfAbsent(File file) {
         if (!file.exists()) {
-            file.getParentFile().mkdirs();
+            file.mkdirs();
             try {
                 file.createNewFile();
             } catch (IOException e) {
