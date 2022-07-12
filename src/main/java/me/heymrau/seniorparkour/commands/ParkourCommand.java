@@ -6,12 +6,10 @@ import me.heymrau.seniorparkour.SeniorParkour;
 import me.heymrau.seniorparkour.checkpoint.Checkpoint;
 import me.heymrau.seniorparkour.config.ConfigKeys;
 import me.heymrau.seniorparkour.config.ConfigKeys.Messages;
-import me.heymrau.seniorparkour.hologram.HologramManager;
 import me.heymrau.seniorparkour.menu.type.InfoMenu;
 import me.heymrau.seniorparkour.menu.type.StatsMenu;
 import me.heymrau.seniorparkour.menu.type.TopMenu;
 import me.heymrau.seniorparkour.parkour.Parkour;
-import me.heymrau.seniorparkour.parkour.ParkourManager;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -23,11 +21,11 @@ import java.util.Map;
 @CommandAlias("parkour")
 public class ParkourCommand extends BaseCommand {
 
-    private final SeniorParkour plugin = SeniorParkour.getInstance();
+    private final SeniorParkour plugin;
 
-    private final ParkourManager parkourManager = plugin.getParkourManager();
-    private final HologramManager hologramManager = plugin.getHologramManager();
-
+    public ParkourCommand(SeniorParkour plugin) {
+        this.plugin = plugin;
+    }
 
     @Subcommand("create")
     @CommandPermission("parkour.admin.create")
@@ -35,7 +33,7 @@ public class ParkourCommand extends BaseCommand {
         Parkour parkour = new Parkour(name, putPressurePlate(player.getLocation()));
         plugin.getParkourManager().getParkours().add(parkour);
 
-        hologramManager.createStartHologram(parkour);
+        plugin.getHologramManager().createStartHologram(parkour);
 
         Messages.PARKOUR_CREATED.send(player);
     }
@@ -47,7 +45,7 @@ public class ParkourCommand extends BaseCommand {
         Checkpoint checkpoint = new Checkpoint(name, putPressurePlate(player.getLocation()));
         parkour.getCheckpoints().add(checkpoint);
 
-        hologramManager.createCheckpointHologram(parkour, checkpoint);
+        plugin.getHologramManager().createCheckpointHologram(parkour, checkpoint);
 
         Messages.CHECKPOINT_CREATED.send(player);
     }
@@ -59,7 +57,7 @@ public class ParkourCommand extends BaseCommand {
     public void end(Player player, Parkour parkour) {
         parkour.setEndBlock(putPressurePlate(player.getLocation()));
 
-        hologramManager.createEndHologram(parkour);
+        plugin.getHologramManager().createEndHologram(parkour);
 
         Messages.PARKOUR_SET_END_LOCATION.send(player);
     }
@@ -96,7 +94,7 @@ public class ParkourCommand extends BaseCommand {
     @CommandCompletion("@parkours")
     @CommandPermission("parkour.top")
     public void top(Player player, Parkour parkour) {
-        new TopMenu(parkour).open(player);
+        new TopMenu(plugin, parkour).open(player);
     }
 
     @Subcommand("info")
@@ -110,7 +108,7 @@ public class ParkourCommand extends BaseCommand {
     @CommandCompletion("@players")
     @CommandPermission("parkour.stats")
     public void stats(Player player, Player target) {
-        new StatsMenu(target).open(player);
+        new StatsMenu(plugin, target).open(player);
     }
 
     @Subcommand("reload")

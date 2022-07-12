@@ -18,14 +18,18 @@ import java.util.*;
 
 public class ParkourManager {
 
-    private final SeniorParkour plugin = SeniorParkour.getInstance();
+    private final SeniorParkour plugin;
+
+    public ParkourManager(SeniorParkour plugin) {
+        this.plugin = plugin;
+    }
 
     @Getter
     private final List<Parkour> parkours = new ArrayList<>();
 
     public void loadParkours() {
         File parkoursDirectory = new File(plugin.getDataFolder(), "parkours");
-        FileUtil.createIfAbsent(parkoursDirectory);
+        FileUtil.createDirectory(parkoursDirectory);
 
         File[] files = parkoursDirectory.listFiles();
         if (files == null) return;
@@ -35,7 +39,7 @@ public class ParkourManager {
 
     public void saveParkours() {
         File parkoursDirectory = new File(plugin.getDataFolder(), "parkours");
-        FileUtil.deleteContents(parkoursDirectory);
+        FileUtil.deleteFiles(parkoursDirectory);
 
         parkours.forEach(parkour -> {
             Yaml parkourFile = new Yaml(new File(plugin.getDataFolder(), "parkours" + File.separator + parkour.getName() + ".yml"));

@@ -1,7 +1,6 @@
 package me.heymrau.seniorparkour;
 
 import co.aikar.commands.*;
-import lombok.AccessLevel;
 import lombok.Getter;
 import me.heymrau.seniorparkour.checkpoint.Checkpoint;
 import me.heymrau.seniorparkour.checkpoint.CheckpointManager;
@@ -30,37 +29,33 @@ import org.bukkit.plugin.java.JavaPlugin;
 @Getter
 public final class SeniorParkour extends JavaPlugin {
 
-    @Getter(AccessLevel.PUBLIC)
-    private static SeniorParkour instance;
-
     private final ConfigManager configManager = new ConfigManager();
+    private final ParkourManager parkourManager = new ParkourManager(this);
+    private final CheckpointManager checkpointManager = new CheckpointManager(this);
+    private final UserManager userManager = new UserManager(this);
+    private final ParkourEntryManager parkourEntryManager = new ParkourEntryManager(this);
+
     private HologramManager hologramManager;
-    private ParkourManager parkourManager;
-    private CheckpointManager checkpointManager;
     private StorageManager storageManager;
-    private UserManager userManager;
-    private ParkourEntryManager parkourEntryManager;
 
     @Override
     public void onEnable() {
-        instance = this;
-
         reloadFiles();
 
         hologramManager = new HologramManager();
-        parkourManager = new ParkourManager();
-        checkpointManager = new CheckpointManager();
-        storageManager = new StorageManager(DataSource.getDataSource(Settings.STORAGE_TYPE.getValue()));
-        userManager = new UserManager();
-        parkourEntryManager = new ParkourEntryManager();
+        storageManager = new StorageManager(this, DataSource.getDataSource(Settings.STORAGE_TYPE.getValue()));
 
         parkourManager.loadParkours();
 
         registerCommands();
 
-        registerListeners(new UserListener(), new MenuListener(), new HologramListener(), new ParkourProtectionListener(), new ParkourEntryListener());
+        registerListeners(new UserListener(this),
+                new MenuListener(),
+                new HologramListener(this),
+                new ParkourProtectionListener(this),
+                new ParkourEntryListener(this));
 
-        new AutoSaveTask().start();
+        new AutoSaveTask(this).start();
     }
 
     @Override
@@ -85,7 +80,7 @@ public final class SeniorParkour extends JavaPlugin {
         commandCompletions.registerCompletion("parkours", c -> parkourManager.getParkours().stream().map(Parkour::getName).toList());
         commandCompletions.registerCompletion("checkpoints", c ->  c.getContextValue(Parkour.class).getCheckpoints().stream().map(Checkpoint::name).toList());
 
-        commandManager.registerCommand(new ParkourCommand());
+        commandManager.registerCommand(new ParkourCommand(this));
     }
 
     @SafeVarargs

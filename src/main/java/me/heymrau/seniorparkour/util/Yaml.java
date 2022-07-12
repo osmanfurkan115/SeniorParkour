@@ -7,10 +7,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 
 public class Yaml extends YamlConfiguration {
+
+    // Get the plugin instance from class loader
+    private static final JavaPlugin plugin = JavaPlugin.getPlugin(SeniorParkour.class);
+
     private final File file;
 
     public Yaml(String fileName) {
-        JavaPlugin plugin = SeniorParkour.getInstance();
         this.file = new File(plugin.getDataFolder() + File.separator + fileName);
 
         if (plugin.getResource(fileName) != null && !exists()) plugin.saveResource(fileName, false);

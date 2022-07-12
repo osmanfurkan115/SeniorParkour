@@ -13,12 +13,13 @@ import java.util.Map;
 
 public class StatsMenu extends Menu {
 
-    private final SeniorParkour plugin = SeniorParkour.getInstance();
+    private final SeniorParkour plugin;
 
     private final Player target;
 
-    public StatsMenu(Player target) {
+    public StatsMenu(SeniorParkour plugin, Player target) {
         super("menus/stats.yml");
+        this.plugin = plugin;
         this.target = target;
     }
 

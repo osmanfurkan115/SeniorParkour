@@ -9,7 +9,11 @@ import org.bukkit.event.player.PlayerToggleFlightEvent;
 
 public class ParkourProtectionListener implements Listener {
 
-    private final ParkourEntryManager parkourEntryManager = SeniorParkour.getInstance().getParkourEntryManager();
+    private final ParkourEntryManager parkourEntryManager;
+
+    public ParkourProtectionListener(SeniorParkour plugin) {
+        this.parkourEntryManager = plugin.getParkourEntryManager();
+    }
 
     @EventHandler
     public void onFlight(PlayerToggleFlightEvent event) {

@@ -4,7 +4,6 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import me.heymrau.seniorparkour.SeniorParkour;
 import me.heymrau.seniorparkour.hologram.line.HologramLine;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -48,7 +47,6 @@ public class Hologram {
     public Hologram onClick(Consumer<Player> onClick) {
         this.onClick = onClick;
 
-        SeniorParkour.getInstance().getHologramManager().getHolograms().put(id, this);
         return this;
     }
 

@@ -18,10 +18,10 @@ public class TopMenu extends Menu {
     private final Parkour parkour;
     private Page<User> page;
 
-    public TopMenu(Parkour parkour) {
+    public TopMenu(SeniorParkour plugin, Parkour parkour) {
         super("menus/top.yml");
         this.parkour = parkour;
-        this.page = Page.of(SeniorParkour.getInstance().getUserManager().findTopByParkour(parkour, 9), 9);
+        this.page = Page.of(plugin.getUserManager().findTopByParkour(parkour, 9), 9);
     }
 
     @Override

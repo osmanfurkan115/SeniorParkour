@@ -9,14 +9,16 @@ public final class FileUtil {
     private FileUtil() {
     }
 
+    @NotNull
     public static File createFile(@NotNull String path) {
         File file = new File(path.replace("/", File.separator));
         return createIfAbsent(file);
     }
 
-    public static File createIfAbsent(File file) {
+    @NotNull
+    public static File createIfAbsent(@NotNull File file) {
         if (!file.exists()) {
-            file.mkdirs();
+            file.getParentFile().mkdirs();
             try {
                 file.createNewFile();
             } catch (IOException e) {
@@ -26,15 +28,30 @@ public final class FileUtil {
         return file;
     }
 
-    public static void deleteContents(File directory) {
+    @NotNull
+    public static File createDirectory(@NotNull File file) {
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        return file;
+    }
+
+    public static void deleteContent(@NotNull File file) {
+        if (file.exists()) {
+            file.delete();
+            FileUtil.createIfAbsent(file);
+        }
+    }
+
+    public static void deleteFiles(@NotNull File directory) {
         File[] files = directory.listFiles();
         if (files == null) return;
         for (File file : files) {
             if (file.isDirectory()) {
-                deleteContents(file);
-            } else {
-                file.delete();
+                deleteFiles(file);
+                continue;
             }
+            file.delete();
         }
     }
 }

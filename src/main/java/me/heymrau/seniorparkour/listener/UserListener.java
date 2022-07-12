@@ -8,7 +8,11 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class UserListener implements Listener {
 
-    private final UserManager userManager = SeniorParkour.getInstance().getUserManager();
+    private final UserManager userManager;
+
+    public UserListener(SeniorParkour plugin) {
+        this.userManager = plugin.getUserManager();
+    }
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {

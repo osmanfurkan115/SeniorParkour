@@ -13,11 +13,16 @@ public class UserManager {
 
     private final List<User> users = new ArrayList<>();
 
-    private final UserRepository userRepository = SeniorParkour.getInstance().getStorageManager().getUserRepository();
+    private final SeniorParkour plugin;
+
+    public UserManager(SeniorParkour plugin) {
+        this.plugin = plugin;
+    }
 
     public void addIfAbsent(Player player) {
         if (users.stream().anyMatch(user -> user.getUUID().equals(player.getUniqueId()))) return;
-        users.add(userRepository.findByUUID(player.getUniqueId()).orElseGet(() -> createNewUser(player.getUniqueId())));
+        users.add(plugin.getStorageManager().getUserRepository().findByUUID(player.getUniqueId())
+                .orElseGet(() -> createNewUser(player.getUniqueId())));
     }
 
     public User getUser(Player player) {
@@ -35,11 +40,13 @@ public class UserManager {
     }
 
     public List<User> findTopByParkour(Parkour parkour, int limit) {
+        UserRepository userRepository = plugin.getStorageManager().getUserRepository();
+
         userRepository.saveAll(users);
         return userRepository.findTopByParkour(parkour, limit);
     }
 
     public void saveUsers() {
-        userRepository.saveAll(users);
+        plugin.getStorageManager().getUserRepository().saveAll(users);
     }
 }

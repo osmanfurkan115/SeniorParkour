@@ -14,7 +14,11 @@ import java.util.Optional;
 
 public class HologramListener implements Listener {
 
-    private final SeniorParkour plugin = SeniorParkour.getInstance();
+    private final SeniorParkour plugin;
+
+    public HologramListener(SeniorParkour plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {

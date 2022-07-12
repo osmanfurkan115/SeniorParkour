@@ -15,7 +15,11 @@ public class ParkourEntryManager {
     @Getter
     private final List<ParkourEntry> parkourEntries = new ArrayList<>();
 
-    private final SeniorParkour plugin = SeniorParkour.getInstance();
+    private final SeniorParkour plugin;
+
+    public ParkourEntryManager(SeniorParkour plugin) {
+        this.plugin = plugin;
+    }
 
     public Optional<ParkourEntry> findByUUID(UUID uuid) {
         return parkourEntries.stream()

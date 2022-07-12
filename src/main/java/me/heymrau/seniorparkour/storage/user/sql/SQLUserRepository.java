@@ -17,9 +17,10 @@ public class SQLUserRepository implements UserRepository {
 
     private final SQLConnection connection;
 
-    private final ParkourManager parkourManager = SeniorParkour.getInstance().getParkourManager();
+    private final ParkourManager parkourManager;
 
-    public SQLUserRepository(SQLConnection connection) {
+    public SQLUserRepository(SeniorParkour plugin, SQLConnection connection) {
+        this.parkourManager = plugin.getParkourManager();
         this.connection = connection;
         initializeTables();
     }

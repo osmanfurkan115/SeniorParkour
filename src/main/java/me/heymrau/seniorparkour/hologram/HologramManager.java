@@ -53,6 +53,7 @@ public class HologramManager {
         Hologram hologram = new Hologram(UUID.randomUUID().toString(), location.add(0, height, 0));
         hologram.addLines(lines.stream().map(line -> new HologramLine(hologram, line)).toArray(HologramLine[]::new));
 
+        this.holograms.put(hologram.getId(), hologram);
         return hologram;
     }
 }

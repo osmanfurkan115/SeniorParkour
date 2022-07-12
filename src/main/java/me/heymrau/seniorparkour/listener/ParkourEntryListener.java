@@ -9,7 +9,11 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class ParkourEntryListener implements Listener {
 
-    private final SeniorParkour plugin = SeniorParkour.getInstance();
+    private final SeniorParkour plugin;
+
+    public ParkourEntryListener(SeniorParkour plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler
     public void onPressurePlate(PlayerInteractEvent event) {

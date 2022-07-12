@@ -1,6 +1,7 @@
 package me.heymrau.seniorparkour.storage;
 
 import lombok.Getter;
+import me.heymrau.seniorparkour.SeniorParkour;
 import me.heymrau.seniorparkour.config.ConfigKeys.Settings;
 import me.heymrau.seniorparkour.storage.sql.SQLCredentials;
 import me.heymrau.seniorparkour.storage.sql.connection.MySQLConnection;
@@ -12,7 +13,7 @@ public class StorageManager {
 
     private final UserRepository userRepository;
 
-    public StorageManager(DataSource dataSource) {
+    public StorageManager(SeniorParkour plugin, DataSource dataSource) {
         switch (dataSource) {
             case MySQL -> { // Add other sql types here if you want to support them
                 SQLCredentials credentials = SQLCredentials.builder()
@@ -21,7 +22,7 @@ public class StorageManager {
                         .username(Settings.SQL_USERNAME.getValue())
                         .password(Settings.SQL_PASSWORD.getValue())
                         .build();
-                this.userRepository = new SQLUserRepository(new MySQLConnection(credentials));
+                this.userRepository = new SQLUserRepository(plugin, new MySQLConnection(credentials));
             }
             default -> throw new IllegalArgumentException("Unknown data source: " + dataSource);
         }

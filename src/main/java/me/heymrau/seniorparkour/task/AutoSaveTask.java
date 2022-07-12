@@ -6,13 +6,19 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class AutoSaveTask extends BukkitRunnable {
 
+    private final SeniorParkour plugin;
+
+    public AutoSaveTask(SeniorParkour plugin) {
+        this.plugin = plugin;
+    }
+
     public void start() {
         long savePeriod = ConfigKeys.Settings.SAVE_INTERVAL.getValue() * 20;
-        runTaskTimer(SeniorParkour.getInstance(), savePeriod, savePeriod);
+        runTaskTimer(plugin, savePeriod, savePeriod);
     }
 
     @Override
     public void run() {
-        SeniorParkour.getInstance().getParkourManager().saveParkours();
+        plugin.getParkourManager().saveParkours();
     }
 }
